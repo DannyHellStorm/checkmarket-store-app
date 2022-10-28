@@ -51,6 +51,7 @@ Product.belongsTo(Category);
 const Service = sequelize.define('service', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
+  image: { type: DataTypes.STRING, allowNull: false },
 });
 
 const ServiceRequest = sequelize.define('service_request', {
