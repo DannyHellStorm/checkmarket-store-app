@@ -68,9 +68,14 @@ const Order = sequelize.define('order', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   surname: { type: DataTypes.STRING, allowNull: false },
-  payment_method: { type: DataTypes.ENUM('Наличными', 'Безналичный расчет') },
+  payment_method: {
+    type: DataTypes.ENUM,
+    values: ['Наличными', 'Безналичный расчет'],
+    allowNull: false,
+  },
   delivery_method: {
     type: DataTypes.ENUM('Самовывоз', 'Доставка'),
+    allowNull: false,
   },
   city: {
     type: DataTypes.ENUM(
@@ -87,10 +92,12 @@ const Order = sequelize.define('order', {
       'Павлодар',
       'Петропавловск'
     ),
+    allowNull: false,
   },
   address: { type: DataTypes.STRING, allowNull: false },
   phone: { type: DataTypes.STRING, allowNull: false },
   comment: { type: DataTypes.STRING },
+  amount: { type: DataTypes.INTEGER, allowNull: false },
   prettyCreatedAt: {
     type: DataTypes.VIRTUAL,
     get() {
@@ -119,6 +126,11 @@ const Order = sequelize.define('order', {
 
 const OrderItem = sequelize.define('order_item', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  title: { type: DataTypes.STRING, allowNull: false },
+  totalPrice: { type: DataTypes.INTEGER, allowNull: false },
+  in_stock: { type: DataTypes.BOOLEAN },
+  in_order: { type: DataTypes.BOOLEAN },
+  quantity: { type: DataTypes.INTEGER, allowNull: false },
 });
 
 Order.hasMany(OrderItem, { as: 'items', onDelete: 'CASCADE' });

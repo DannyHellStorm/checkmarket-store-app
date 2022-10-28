@@ -7,17 +7,30 @@ import AppError from '../error/AppError.js';
 
 const basketDTO = (basket) => {
   const data = {};
+
+  console.log('basket', basket);
+  console.log('basket', basket.id);
+
   data.id = basket.id;
   data.products = [];
+  data.total = [];
   if (basket.products) {
     data.products = basket.products.map((item) => {
       return {
         id: item.id,
-        name: item.name,
+        title: item.title,
+        in_stock: item.in_stock,
+        in_order: item.in_order,
         price: item.price,
         quantity: item.basket_product.quantity,
+        amount: parseInt(item.price * item.basket_product.quantity),
       };
     });
+
+    data.total = basket.products.reduce(
+      (sum, item) => sum + item.price * item.basket_product.quantity,
+      0
+    );
   }
   return data;
 };
@@ -26,7 +39,12 @@ class Basket {
   async getOne(basketId) {
     let basket = await BasketMapping.findByPk(basketId, {
       attributes: ['id'],
-      include: [{ model: ProductMapping, attributes: ['id', 'name', 'price'] }],
+      include: [
+        {
+          model: ProductMapping,
+          attributes: ['id', 'title', 'price', 'in_stock', 'in_order'],
+        },
+      ],
     });
 
     if (!basket) {
@@ -44,7 +62,12 @@ class Basket {
   async append(basketId, productId, quantity) {
     let basket = await BasketMapping.findByPk(basketId, {
       attributes: ['id'],
-      include: [{ model: ProductMapping, attributes: ['id', 'name', 'price'] }],
+      include: [
+        {
+          model: ProductMapping,
+          attributes: ['id', 'title', 'price', 'in_stock', 'in_order'],
+        },
+      ],
     });
 
     if (!basket) {
