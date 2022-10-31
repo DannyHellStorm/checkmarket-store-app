@@ -137,13 +137,13 @@ const OrderItem = sequelize.define('order_item', {
 Order.hasMany(OrderItem, { as: 'items', onDelete: 'CASCADE' });
 OrderItem.belongsTo(Order);
 
-const Contact = sequelize.define('identify_product', {
+const Contact = sequelize.define('contact_request', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   surname: { type: DataTypes.STRING, allowNull: false },
   phone: { type: DataTypes.STRING },
   email: { type: DataTypes.STRING, allowNull: false },
-  comment: { type: DataTypes.STRING, allowNull: false },
+  comment: { type: DataTypes.STRING, allowNull: false, unique: true },
 });
 
 const Blog = sequelize.define('blog', {
