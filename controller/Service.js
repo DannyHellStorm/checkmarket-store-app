@@ -22,7 +22,7 @@ class Service {
   async getOneService(req, res, next) {
     try {
       if (!req.params.id) {
-        throw new Error('Не указан id товара');
+        throw new Error('Не указан id сервиса');
       }
       const service = await ServiceModel.getOne(req.params.id);
       res.json(service);
@@ -33,7 +33,7 @@ class Service {
 
   /*
   method: POST
-  desc: get all services
+  desc: create service
   */
   async createService(req, res, next) {
     try {
@@ -58,7 +58,7 @@ class Service {
   async updateService(req, res, next) {
     try {
       if (!req.params.id) {
-        throw new Error('Не указан id товара');
+        throw new Error('Не указан id сервиса');
       }
 
       if (Object.keys(req.body).length === 0) {
@@ -83,10 +83,11 @@ class Service {
   async deleteService(req, res, next) {
     try {
       if (!req.params.id) {
-        throw new Error('Не указан id товара');
+        throw new Error('Не указан id сервиса');
       }
 
       const service = await ServiceModel.deleteService(req.params.id);
+      res.json(service);
     } catch (e) {
       next(AppError.badRequest(e.message));
     }
