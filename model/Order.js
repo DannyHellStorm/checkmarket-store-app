@@ -1,6 +1,7 @@
 import {
   Order as OrderMapping,
   OrderItem as OrderItemMapping,
+  Product as ProductMapping,
 } from './mapping.js';
 
 class Order {
@@ -13,12 +14,12 @@ class Order {
         {
           model: OrderItemMapping,
           as: 'items',
-          attributes: [
-            'title',
-            'in_stock',
-            'in_order',
-            'quantity',
-            'totalPrice',
+          attributes: ['quantity', 'totalPrice'],
+          include: [
+            {
+              model: ProductMapping,
+              attributes: ['in_stock', 'in_order', 'title'],
+            },
           ],
         },
       ],
@@ -34,12 +35,12 @@ class Order {
         {
           model: OrderItemMapping,
           as: 'items',
-          attributes: [
-            'title',
-            'in_stock',
-            'in_order',
-            'quantity',
-            'totalPrice',
+          attributes: ['quantity', 'totalPrice'],
+          include: [
+            {
+              model: ProductMapping,
+              attributes: ['in_stock', 'in_order', 'title'],
+            },
           ],
         },
       ],
@@ -85,12 +86,10 @@ class Order {
 
     for (let item of items) {
       await OrderItemMapping.create({
-        title: item.title,
         totalPrice: parseInt(item.price * item.quantity),
-        in_stock: item.in_stock,
-        in_order: item.in_order,
         quantity: item.quantity,
         orderId: order.id,
+        productId: item.id,
       });
     }
 
@@ -99,12 +98,12 @@ class Order {
         {
           model: OrderItemMapping,
           as: 'items',
-          attributes: [
-            'title',
-            'in_stock',
-            'in_order',
-            'quantity',
-            'totalPrice',
+          attributes: ['quantity', 'totalPrice'],
+          include: [
+            {
+              model: ProductMapping,
+              attributes: ['in_stock', 'in_order', 'title'],
+            },
           ],
         },
       ],
@@ -119,12 +118,12 @@ class Order {
         {
           model: OrderItemMapping,
           as: 'items',
-          attributes: [
-            'title',
-            'in_stock',
-            'in_order',
-            'quantity',
-            'totalPrice',
+          attributes: ['quantity', 'totalPrice'],
+          include: [
+            {
+              model: ProductMapping,
+              attributes: ['in_stock', 'in_order', 'title'],
+            },
           ],
         },
       ],
