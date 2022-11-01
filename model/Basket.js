@@ -8,9 +8,6 @@ import AppError from '../error/AppError.js';
 const basketDTO = (basket) => {
   const data = {};
 
-  console.log('basket', basket);
-  console.log('basket', basket.id);
-
   data.id = basket.id;
   data.products = [];
   data.total = [];

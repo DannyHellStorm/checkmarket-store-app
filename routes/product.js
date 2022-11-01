@@ -5,6 +5,10 @@ const router = new express.Router();
 
 // Filters
 router.get('/getall/categoryId/:categoryId', ProductController.getAll);
+router.get('/getall/price', ProductController.getAllByPrice);
+router.get('/getall/stock', ProductController.getAllByStock);
+router.get('/getall/sale', ProductController.getAllBySale);
+router.get('/getall/sort', ProductController.getSortingProduct);
 
 // Product
 router.get('/search/product_title/:key', ProductController.searchProduct);

@@ -127,15 +127,15 @@ const Order = sequelize.define('order', {
 
 const OrderItem = sequelize.define('order_item', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  title: { type: DataTypes.STRING, allowNull: false },
   totalPrice: { type: DataTypes.INTEGER, allowNull: false },
-  in_stock: { type: DataTypes.BOOLEAN },
-  in_order: { type: DataTypes.BOOLEAN },
   quantity: { type: DataTypes.INTEGER, allowNull: false },
 });
 
 Order.hasMany(OrderItem, { as: 'items', onDelete: 'CASCADE' });
 OrderItem.belongsTo(Order);
+
+Product.hasMany(OrderItem);
+OrderItem.belongsTo(Product);
 
 const Contact = sequelize.define('contact_request', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
