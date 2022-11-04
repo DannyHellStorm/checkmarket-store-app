@@ -150,7 +150,8 @@ const Blog = sequelize.define('blog', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   type: { type: DataTypes.ENUM('Новости', 'Статьи') },
   title: { type: DataTypes.STRING, allowNull: false },
-  desciption: { type: DataTypes.TEXT },
+  description: { type: DataTypes.TEXT },
+  image: { type: DataTypes.STRING, allowNull: false },
 });
 
 export {
